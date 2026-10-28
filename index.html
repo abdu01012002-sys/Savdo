@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Poyabzal ishlab chiqarish va ombor boshqaruvi tizimi, Google Auth va Firestore ma'lumotlar bazasi integratsiyasi bilan." />
+    <meta property="og:title" content="OmborPro - Poyabzal Ombori Boshqaruvi" />
+    <meta property="og:description" content="Poyabzal ishlab chiqarish va ombor boshqaruvi tizimi, Google Auth va Firestore ma'lumotlar bazasi integratsiyasi bilan." />
+    <title>OmborPro - Poyabzal Ombori Boshqaruvi</title>
+    <script>
+      window.__vite_plugin_react_preamble_installed__ = true;
+      if (typeof window.$RefreshReg$ === 'undefined') {
+        window.$RefreshReg$ = function() {};
+      }
+      if (typeof window.$RefreshSig$ === 'undefined') {
+        window.$RefreshSig$ = function() { return function(type) { return type; }; };
+      }
+    </script>
+    <script>
+      (function() {
+        function isWsError(msg) {
+          return msg && (
+            msg.indexOf('WebSocket') !== -1 ||
+            msg.indexOf('websocket') !== -1 ||
+            msg.indexOf('closed without opened') !== -1 ||
+            msg.indexOf('failed to connect to websocket') !== -1 ||
+            msg.indexOf('failed to connect') !== -1
+          );
+        }
+        var origConsoleError = console.error;
+        console.error = function() {
+          var args = Array.prototype.slice.call(arguments);
+          var msg = args.map(function(a) { return String((a && (a.message || a)) || ''); }).join(' ');
+          if (isWsError(msg)) return;
+          origConsoleError.apply(console, arguments);
+        };
+        var origConsoleWarn = console.warn;
+        console.warn = function() {
+          var args = Array.prototype.slice.call(arguments);
+          var msg = args.map(function(a) { return String((a && (a.message || a)) || ''); }).join(' ');
+          if (isWsError(msg)) return;
+          origConsoleWarn.apply(console, arguments);
+        };
+        window.addEventListener('unhandledrejection', function(e) {
+          var reason = e.reason;
+          var msg = String((reason && (reason.message || reason)) || '');
+          if (isWsError(msg)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        });
+        window.addEventListener('error', function(e) {
+          var msg = String(e.message || '');
+          if (isWsError(msg)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny for unmapped paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // App core state & settings (30-50 KB lightweight main document)
+    match /app_db/{docId} {
+      allow read, write: if true;
+    }
+
+    match /settings/{docId} {
+      allow read, write: if true;
+    }
+
+    // Transactions - flat collection and legacy sharded subcollections
+    match /transactions/{txId} {
+      allow read, write: if true;
+    }
+
+    match /transactions/{shard}/{txId} {
+      allow read, write: if true;
+    }
+
+    match /kottaTransactions/{txId} {
+      allow read, write: if true;
+    }
+
+    // Sharded transactions collections by year and month (e.g. transactions_2026_10)
+    match /{collectionName}/{txId} {
+      allow read, write: if collectionName.matches('^transactions_[0-9]{4}_[0-9]{2}$');
+    }
+
+    // Customers and suppliers
+    match /kontragentlar/{kontragentId} {
+      allow read, write: if true;
+    }
+
+    // Transfers between warehouses
+    match /otkazmalar/{otkazmaId} {
+      allow read, write: if true;
+    }
+
+    // Cash register operations
+    match /kassaHarakatlari/{harakatId} {
+      allow read, write: if true;
+    }
+
+    // Audit logs
+    match /auditLogs/{logId} {
+      allow read, write: if true;
+    }
+
+    // Employee login history
+    match /XodimlarTarixi/{historyId} {
+      allow read, write: if true;
+    }
+  }
+}

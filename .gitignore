@@ -1,0 +1,16 @@
+# Kesh va server ma'lumotlar papkalarini e'tiborsiz qoldirish
+data/
+*.cache
+*.json.backup
+/data/backups/
+/data/server_db_cache.json
+
+# Boshqa kesh va build papkasi
+node_modules/
+dist/
+build/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example

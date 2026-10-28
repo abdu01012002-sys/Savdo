@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #09090b; /* zinc-950 */
+    --bg2: #121215; /* dark surface */
+    --bg3: #18181b; /* zinc-900 */
+    --border: #27272a; /* zinc-800 */
+    --border2: #3f3f46; /* zinc-700 */
+    --text: #f8fafc; /* slate-50 */
+    --text2: #e2e8f0; /* slate-200 */
+    --text3: #94a3b8; /* slate-400 */
+    --primary: #3b82f6; /* blue-500 */
+    --primary-d: #2563eb; /* blue-600 */
+    --primary-bg: rgba(59, 130, 246, 0.12);
+    --tepa: #3b82f6; /* blue-500 */
+    --tepa-d: #2563eb; /* blue-600 */
+    --tepa-bg: rgba(59, 130, 246, 0.12);
+    --kotta: #60a5fa; /* blue-400 */
+    --kotta-d: #3b82f6; /* blue-500 */
+    --kotta-bg: rgba(96, 165, 250, 0.12);
+    --green: #10b981; /* emerald-500 */
+    --green-bg: rgba(16, 185, 129, 0.12);
+    --red: #f43f5e; /* rose-500 */
+    --red-bg: rgba(244, 63, 94, 0.12);
+    --warn: #f59e0b; /* amber-500 */
+    --warn-bg: rgba(245, 158, 11, 0.12);
+    --radius: 12px;
+    --active-color: var(--tepa);
+    --active-bg: var(--tepa-bg);
+    --active-soft: rgba(59, 130, 246, 0.15);
+    --active-glow: rgba(59, 130, 246, 0.35);
+  }
+
+  :root.kotta-mode {
+    --active-color: var(--kotta);
+    --active-bg: var(--kotta-bg);
+    --active-soft: rgba(96, 165, 250, 0.15);
+    --active-glow: rgba(96, 165, 250, 0.35);
+  }
+
+  :root.light-mode {
+    --bg: #f8fafc; /* slate-50 - crisp neutral light */
+    --bg2: #ffffff; /* white */
+    --bg3: #f1f5f9; /* slate-100 */
+    --border: #e2e8f0; /* slate-200 */
+    --border2: #cbd5e1; /* slate-300 */
+    --text: #0f172a; /* slate-900 - High Contrast WCAG AA/AAA */
+    --text2: #334155; /* slate-700 - High Contrast secondary */
+    --text3: #475569; /* slate-600 - High Contrast WCAG (>4.5:1 on white!) */
+    --primary: #2563eb; /* blue-600 */
+    --primary-d: #1d4ed8; /* blue-700 */
+    --primary-bg: #eff6ff; /* blue-50 */
+    --tepa: #2563eb; /* blue-600 */
+    --tepa-d: #1d4ed8; /* blue-700 */
+    --tepa-bg: #eff6ff; /* blue-50 */
+    --kotta: #1d4ed8; /* blue-700 */
+    --kotta-d: #1e40af; /* blue-800 */
+    --kotta-bg: #eff6ff; /* blue-50 */
+    --green: #059669; /* emerald-600 */
+    --green-bg: #ecfdf5; /* emerald-50 */
+    --red: #e11d48; /* rose-600 */
+    --red-bg: #fff1f2; /* rose-50 */
+    --warn: #d97706; /* amber-600 */
+    --warn-bg: #fffbeb; /* amber-50 */
+    --active-soft: rgba(37, 99, 235, 0.1);
+    --active-glow: rgba(37, 99, 235, 0.25);
+  }
+
+  :root.light-mode.kotta-mode {
+    --active-soft: rgba(29, 78, 216, 0.1);
+    --active-glow: rgba(29, 78, 216, 0.25);
+  }
+  
+  body {
+    @apply bg-[var(--bg)] text-[var(--text)] min-h-screen;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .18s ease, color .15s ease;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* Neumorphic shadow utilities */
+@layer utilities {
+  .size-btn-shadow {
+    box-shadow: 0 1px 2px rgba(0,0,0,.35), 0 4px 10px rgba(0,0,0,.25), inset 0 1px 1px rgba(255,255,255,.06);
+  }
+  :root.light-mode .size-btn-shadow {
+    box-shadow: 0 1px 2px rgba(0,0,0,.10), 0 4px 10px rgba(0,0,0,.08), inset 0 1px 1px rgba(255,255,255,.7);
+  }
+  .size-btn-shadow-hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,.35), 0 8px 16px rgba(0,0,0,.28), inset 0 1px 1px rgba(255,255,255,.08);
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Animations */
+@keyframes sbPulse {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.15); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-sbPulse {
+  animation: sbPulse 2.2s ease-in-out infinite;
+}
+
+
+
+@layer utilities {
+  .soft-card {
+    @apply bg-[var(--bg2)] rounded-[24px];
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+  :root.light-mode .soft-card {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04), 0 2px 10px rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.03);
+  }
+}
+
+/* Print Specific Rules for Faktura, Kassa Receipts, and Reports */
+@media print {
+  html, body {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide app navigation, sidebar, topbar, banners, toasts, buttons and general non-printable elements */
+  .no-print,
+  nav,
+  aside,
+  header,
+  footer,
+  [data-sonner-toaster],
+  .sonner-toast,
+  button:not(.print-keep),
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Clean up modal overlays so ONLY the printable invoice/receipt is visible */
+  .print-receipt-modal {
+    position: static !important;
+    inset: auto !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: block !important;
+    transform: none !important;
+    opacity: 1 !important;
+    z-index: auto !important;
+  }
+
+  .print-modal-card {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    display: block !important;
+    transform: none !important;
+  }
+
+  #print-receipt,
+  .print-area {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  #print-receipt *,
+  .print-area * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color: inherit;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+
+  /* Specific rule for 80mm thermal receipts when in thermal mode */
+  .thermal-receipt-container {
+    max-width: 78mm !important;
+    margin: 0 auto !important;
+    font-family: monospace !important;
+  }
+
+  /* Standard A4 invoice container */
+  .a4-invoice-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

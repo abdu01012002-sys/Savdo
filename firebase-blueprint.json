@@ -1,0 +1,158 @@
+{
+  "entities": {
+    "DbState": {
+      "title": "DbState",
+      "description": "Warehouse balances, prices, kassa balances, and system settings",
+      "type": "object",
+      "properties": {
+        "tepa": { "type": "object", "description": "Tepa ombori qoldiqlari va narxlari" },
+        "kotta": { "type": "object", "description": "Kotta ombori qoldiqlari va narxlari" },
+        "sort2": { "type": "object", "description": "2-sort ombori qoldiqlari" },
+        "prices": { "type": "object", "description": "Modellar narxlari" },
+        "users": { "type": "array", "description": "Xodimlar va rollar ro'yxati" },
+        "templates": { "type": "array", "description": "Chiqim shablonlari" },
+        "kassaBalansi": { "type": "object", "description": "Hamyonlar va kassa joriy qoldiqlari" },
+        "valyutaKursi": { "type": "number", "description": "Valyuta kursi" },
+        "valyutaKursConfig": { "type": "object", "description": "Valyuta kursi sozlamalari va tarixi" },
+        "telegramConfig": { "type": "object", "description": "Telegram bot bildirishnoma sozlamalari" },
+        "muzlatilgan": { "type": "array", "description": "Muzlatilgan tovarlar" },
+        "archivedModels": { "type": "array", "description": "Arxivlangan modellar ro'yxati" },
+        "smenalar": { "type": "array", "description": "Smenalar ro'yxati" },
+        "joriySmena": { "type": "object", "description": "Joriy faol smena" },
+        "pendingKirim": { "type": "array", "description": "Kutilayotgan kirimlar" },
+        "vozvratlar": { "type": "array", "description": "Qaytarilgan tovarlar" },
+        "braklar": { "type": "array", "description": "Brak tovarlar" },
+        "updatedAt": { "type": "string", "description": "Oxirgi yangilanish vaqti" }
+      }
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Warehouse transaction (kirim, chiqim, etc.)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Tranzaksiya unikal ID si" },
+        "sana": { "type": "string", "description": "Sana (YYYY-MM-DD)" },
+        "vaqt": { "type": "string", "description": "Vaqt (HH:mm)" },
+        "ombor": { "type": "string", "description": "Ombor nomi (tepa, kotta, sort2)" },
+        "type": { "type": "string", "description": "Tranzaksiya turi (kirim, chiqim, vozvrat, brak)" },
+        "items": { "type": "array", "description": "Tovar va o'lchamlar ro'yxati" },
+        "jamiJuft": { "type": "number", "description": "Jami juft soni" },
+        "jamiSumma": { "type": "number", "description": "Jami summa" },
+        "kontragent": { "type": "string", "description": "Mijoz yoki ta'minotchi nomi" },
+        "tolov": { "type": "object", "description": "To'lov tafsilotlari" },
+        "izoh": { "type": "string", "description": "Izoh yoki qo'shimcha ma'lumot" }
+      },
+      "required": ["id", "sana"]
+    },
+    "Otkazma": {
+      "title": "Otkazma",
+      "description": "Omborlararo tovar o'tkazmasi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "O'tkazma ID si" },
+        "sana": { "type": "string", "description": "Sana (YYYY-MM-DD)" },
+        "vaqt": { "type": "string", "description": "Vaqt (HH:mm)" },
+        "qayerdan": { "type": "string", "description": "Chiquvchi ombor" },
+        "qayerga": { "type": "string", "description": "Qabul qiluvchi ombor" },
+        "items": { "type": "array", "description": "O'tkazilgan modellar va o'lchamlar" },
+        "jamiJuft": { "type": "number", "description": "Jami o'tkazilgan juft soni" },
+        "izoh": { "type": "string", "description": "O'tkazma izohi" }
+      },
+      "required": ["id", "sana"]
+    },
+    "KassaHarakati": {
+      "title": "KassaHarakati",
+      "description": "Kassa kirim va chiqim operatsiyasi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Kassa harakati unikal ID si" },
+        "sana": { "type": "string", "description": "Sana (YYYY-MM-DD)" },
+        "vaqt": { "type": "string", "description": "Vaqt (HH:mm)" },
+        "turi": { "type": "string", "description": "Harakat turi (kirim, chiqim, xarajat, o'tkazma)" },
+        "summa": { "type": "number", "description": "Operatsiya summasi" },
+        "valyuta": { "type": "string", "description": "Valyuta (UZS, USD)" },
+        "hamyon": { "type": "string", "description": "Hamyon (naqd, karta, bank)" },
+        "izoh": { "type": "string", "description": "Kassa amali izohi" }
+      },
+      "required": ["id", "sana", "summa"]
+    },
+    "Kontragent": {
+      "title": "Kontragent",
+      "description": "Mijoz yoki ta'minotchi kartochkasi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Kontragent ID si" },
+        "nom": { "type": "string", "description": "Mijoz yoki korxona nomi" },
+        "telefon": { "type": "string", "description": "Telefon raqami" },
+        "balans": { "type": "number", "description": "Joriy qarz yoki oldindan to'lov balansi" },
+        "manzil": { "type": "string", "description": "Manzil yoki hudud" }
+      },
+      "required": ["id", "nom"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Tizim harakatlari auditi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Audit yozuvi ID si" },
+        "date": { "type": "string", "description": "Sana va vaqt" },
+        "user": { "type": "string", "description": "Amalni bajargan xodim" },
+        "action": { "type": "string", "description": "Amal nomi" },
+        "details": { "type": "string", "description": "Batafsil ma'lumot" }
+      },
+      "required": ["id", "date", "action"]
+    },
+    "XodimTarixi": {
+      "title": "XodimTarixi",
+      "description": "Google orqali tizimga kirgan xodimlar tarixi va akkaunt ma'lumotlari",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Google Auth foydalanuvchi UID" },
+        "email": { "type": "string", "description": "Google email manzili" },
+        "displayName": { "type": "string", "description": "Foydalanuvchi ismi yoki Google profili" },
+        "photoURL": { "type": "string", "description": "Google profil avatar rasmi" },
+        "lastLogin": { "type": "string", "description": "Oxirgi kirish vaqti (ISO format)" },
+        "firstLogin": { "type": "string", "description": "Birinchi marta tizimga kirgan vaqti" },
+        "loginCount": { "type": "number", "description": "Tizimga kirishlar soni" },
+        "selectedUserName": { "type": "string", "description": "Tanlangan tizim xodimi ismi" },
+        "selectedUserRole": { "type": "string", "description": "Tanlangan xodim roli" },
+        "userAgent": { "type": "string", "description": "Kirilgan brauzer va qurilma ma'lumotlari" }
+      },
+      "required": ["uid", "email", "lastLogin"]
+    }
+  },
+  "firestore": {
+    "/app_db/{docId}": {
+      "schema": "DbState",
+      "description": "Ombor qoldiqlari, narxlar va sozlamalar (30-50 KB yengil hujjat)"
+    },
+    "/transactions_{year}_{month}/{txId}": {
+      "schema": "Transaction",
+      "description": "Sharded ombor tranzaksiyalari (kirim, chiqim) by year and month"
+    },
+    "/kottaTransactions/{txId}": {
+      "schema": "Transaction",
+      "description": "Kotta ombori maxsus tranzaksiyalari"
+    },
+    "/otkazmalar/{otkazmaId}": {
+      "schema": "Otkazma",
+      "description": "Omborlararo tovar o'tkazmalari"
+    },
+    "/kassaHarakatlari/{harakatId}": {
+      "schema": "KassaHarakati",
+      "description": "Kassa kirim va chiqim harakatlari"
+    },
+    "/kontragentlar/{kontragentId}": {
+      "schema": "Kontragent",
+      "description": "Mijozlar va ta'minotchilar"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Tizim xavfsizlik va audit jurnali"
+    },
+    "/XodimlarTarixi/{historyId}": {
+      "schema": "XodimTarixi",
+      "description": "Google orqali kirgan xodimlar akkauntlari va oxirgi kirish tarixi"
+    }
+  }
+}
